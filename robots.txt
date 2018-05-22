@@ -1,1 +1,4 @@
-"User-agent: *\nDisallow:" 
+User-agent: *
+Allow: /
+
+Sitemap: http://anasme.github.io/sitemap.xml
