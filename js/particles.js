@@ -1,17 +1,28 @@
 particlesJS("particles-js", {
   "particles": {
     "number": {
-      "value": 80,
+      "value": 120,
       "density": {
         "enable": true,
-        "value_area": 800
+        "value_area": 900
       }
     },
     "color": {
-      "value": "#ffffff"
+      "value": [
+        "#0B1026",  // Navy très sombre
+        "#152450",  // Bleu nuit
+        "#233D7A",  // Bleu profond
+        "#2F53A4",  // Bleu indigo
+        "#5B86E5",  // Bleu clair (cohérent bg thème)
+        "#7A5BD0",  // Indigo violacé
+        "#9B59B6",  // Violet moyen
+        "#C04DB2",  // Violet rosé
+        "#E0569A",  // Rose soutenu
+        "#FF6B9D"   // Rose vif
+      ]
     },
     "shape": {
-      "type": "circle",
+      "type": ["circle", "triangle", "polygon", "star"],
       "stroke": {
         "width": 0,
         "color": "#000000"
@@ -25,43 +36,43 @@ particlesJS("particles-js", {
       }
     },
     "opacity": {
-      "value": 0.5,
+      "value": 0.6,
       "random": false,
       "anim": {
-        "enable": false,
-        "speed": 1,
-        "opacity_min": 0.1,
+        "enable": true,
+        "speed": 0.6,
+        "opacity_min": 0.15,
         "sync": false
       }
     },
     "size": {
-      "value": 4,
+      "value": 3.5,
       "random": true,
       "anim": {
         "enable": true,
-        "speed": 1,
+        "speed": 1.2,
         "size_min": 0.1,
         "sync": false
       }
     },
     "line_linked": {
       "enable": true,
-      "distance": 176.37479644244019,
+      "distance": 160,
       "color": "#ffffff",
-      "opacity": 0.2805962670675185,
-      "width": 1.4430665163472378
+      "opacity": 0.35,
+      "width": 1
     },
     "move": {
       "enable": true,
-      "speed": 1,
+      "speed": 1.2,
       "direction": "none",
-      "random": false,
+      "random": true,
       "straight": false,
       "out_mode": "out",
       "bounce": false,
       "attract": {
-        "enable": true,
-        "rotateX": 400.851810096455,
+        "enable": false,
+        "rotateX": 400,
         "rotateY": 1200
       }
     }
@@ -71,30 +82,30 @@ particlesJS("particles-js", {
     "events": {
       "onhover": {
         "enable": true,
-        "mode": "grab"
+        "mode": ["grab", "bubble"]
       },
       "onclick": {
         "enable": true,
-        "mode": "push"
+        "mode": ["push", "repulse"]
       },
       "resize": true
     },
     "modes": {
       "grab": {
-        "distance": 400,
+        "distance": 180,
         "line_linked": {
-          "opacity": 1
+          "opacity": 0.35
         }
       },
       "bubble": {
-        "distance": 400,
-        "size": 40,
+        "distance": 200,
+        "size": 6,
         "duration": 2,
-        "opacity": 8,
-        "speed": 3
+        "opacity": 0.8,
+        "speed": 2
       },
       "repulse": {
-        "distance": 200,
+        "distance": 120,
         "duration": 0.4
       },
       "push": {
@@ -107,21 +118,25 @@ particlesJS("particles-js", {
   },
   "retina_detect": true
 });
+
+// Stats & compteur optionnels (désactivés par défaut pour garder l'UI propre)
 var count_particles, stats, update;
-stats = new Stats;
-stats.setMode(0);
-stats.domElement.style.position = 'absolute';
-stats.domElement.style.left = '0px';
-stats.domElement.style.top = '0px';
-document.body.appendChild(stats.domElement);
-count_particles = document.querySelector('.js-count-particles');
-update = function() {
-  stats.begin();
-  stats.end();
-  if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-    count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-  }
+if (window.Stats && document.querySelector('.js-count-particles')) {
+  stats = new Stats();
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS && window.pJSDom[0].pJS.particles) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
   requestAnimationFrame(update);
-};
-requestAnimationFrame(update);;
+}
 
